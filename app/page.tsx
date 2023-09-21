@@ -4,7 +4,14 @@ import Input from "./component/Input"
 import { useState } from 'react';
 
 const Home = () => {
-  const [data, setData] = useState({});
+  interface WeatherData {
+    current: {
+      temp_f: number;
+      // Add other properties as needed
+    };
+    // Add other properties as needed
+  }
+  const [data, setData] = useState<WeatherData | {}>({});
   const [location, setLocation] = useState("")  
   const [error, setError] = useState("")
 
