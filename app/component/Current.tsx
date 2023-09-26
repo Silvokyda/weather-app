@@ -1,8 +1,24 @@
-import React from 'react'
-import { getCurrentDate } from '../utilis/currentDate'
-import {MdLocationOn} from 'react-icons/md'
+import React from 'react';
+import { getCurrentDate } from '../utilis/currentDate';
+import { MdLocationOn } from 'react-icons/md';
 
-const Current = ({data}) => {
+interface CurrentProps {
+  data: {
+    current: {
+      condition: {
+        icon: string;
+        text: string;
+      };
+      temp_f: number;
+    };
+    location: {
+      name: string;
+      region: string;
+    };
+  };
+}
+
+const Current: React.FC<CurrentProps> = ({ data }) => {
   const currentDate = getCurrentDate();
   const weatherIcon = data.current.condition.icon;
   return (
