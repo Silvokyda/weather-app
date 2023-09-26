@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Input from "./component/Input"
 import { useState } from 'react';
@@ -12,7 +13,11 @@ interface WeatherData {
 }
 
 const Home = () => {
-  const [data, setData] = useState<WeatherData | {}>({});
+  const [data, setData] = useState<WeatherData>({
+    current: {
+      temp_f: 0, // Provide an initial value, or use any default value that makes sense.
+    },
+  });
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
@@ -37,6 +42,35 @@ const Home = () => {
     }
   };
 
+  let content;
+  if(Object.keys(data).length === 0 && error === '')
+  {
+    content = (
+      <div>
+        <h2>Welcome to the weather app</h2>
+      </div>
+    )
+  } else if ( error !== ""){
+    content = (
+      <div>
+        <p>City Not Found</p>
+        <p>Enter a Valid City</p>
+      </div>
+    );
+  } else {
+    content = (
+      <>
+        <div>
+          <Current data={data}/>
+          <WeekForecast/>
+        </div>
+        <div>
+          <WeatherDetails/>
+        </div>
+      </>
+    )
+  }
+
   return (
     <div className="bg-cover bg-gradient-to-r from-blue-500 to to-blue-300 h-screen">
       <div className="bg-white/25 w-full flex flex-col h-fit">
@@ -45,28 +79,7 @@ const Home = () => {
           <Input handleSearch={handleSearch} setLocation={setLocation} />
           <h1 className='mb-8 md:mb-0 order-1 text-white py-2 px-4 rounded-xl italic font-bold'>Weather App</h1>
         </div>
-        
-        {/* Conditional rendering based on data and error */}
-        {Object.keys(data).length === 0 && error === '' ? (
-          <div>
-            <h2>Welcome to the weather app</h2>
-          </div>
-        ) : error !== "" ? (
-          <div>
-            <p>City Not Found</p>
-            <p>Enter a Valid City</p>
-          </div>
-        ) : (
-          <>
-            <div>
-              <Current data={data as WeatherData} />
-              <WeekForecast />
-            </div>
-            <div>
-              <WeatherDetails />
-            </div>
-          </>
-        )}
+        {content}
       </div>
     </div>
   )
