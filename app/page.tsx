@@ -2,6 +2,9 @@
 import React from 'react';
 import Input from "./component/Input"
 import { useState } from 'react';
+import Current from './component/Current';
+import WeatherDetails from './component/WeatherDetails';
+import WeekForecast from './component/WeekForecast';
 
 interface WeatherData {
   current: {
@@ -16,7 +19,7 @@ const Home = () => {
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
-  const url = `http://api.weatherapi.com/v1/forecast.json?key=908a5d812821428180293330232109&q=${location}&days=7&aqi=yes&alerts=yes`;
+  const url = `https://api.weatherapi.com/v1/forecast.json?key=908a5d812821428180293330232109&q=${location}&days=7&aqi=yes&alerts=yes`;
 
   const handleSearch = async (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -37,6 +40,35 @@ const Home = () => {
     }
   };
 
+  let content;
+  if(Object.keys(data).length === 0 && error === '')
+  {
+    content = (
+      <div>
+        <h2>Welcome to the weather app</h2>
+      </div>
+    )
+  } else if ( error !== ""){
+    content = (
+      <div>
+        <p>City Not Found</p>
+        <p>Enter a Valid City</p>
+      </div>
+    );
+  } else {
+    content = (
+      <>
+        <div>
+          <Current data={data}/>
+          <WeekForecast/>
+        </div>
+        <div>
+          <WeatherDetails/>
+        </div>
+      </>
+    )
+  }
+
   return (
     <div className="bg-cover bg-gradient-to-r from-blue-500 to to-blue-300 h-screen">
       <div className="bg-white/25 w-full flex flex-col h-fit">
@@ -45,7 +77,7 @@ const Home = () => {
           <Input handleSearch={handleSearch} setLocation={setLocation} />
           <h1 className='mb-8 md:mb-0 order-1 text-white py-2 px-4 rounded-xl italic font-bold'>Weather App</h1>
         </div>
-        {data && 'current' in data ? <div>{data.current.temp_f}</div> : null}
+        {content}
       </div>
     </div>
   )
