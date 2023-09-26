@@ -9,6 +9,14 @@ import WeekForecast from './component/WeekForecast';
 interface WeatherData {
   current: {
     temp_f: number;
+    condition: {
+      icon: string;
+      text: string;
+    };
+  };
+  location: {
+    name: string;
+    region: string;
   };
 }
 

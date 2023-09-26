@@ -1,6 +1,7 @@
 import React from 'react';
 import { getCurrentDate } from '../utilis/currentDate';
 import { MdLocationOn } from 'react-icons/md';
+import Image from 'next/image';
 
 interface CurrentProps {
   data: {
@@ -30,7 +31,12 @@ const Current: React.FC<CurrentProps> = ({ data }) => {
         </div>
           {weatherIcon && (
             <div>
-              <img className='w-[50px] object-cover' src={weatherIcon} alt={data.current.condition.text} />            
+              <Image
+                src={weatherIcon}
+                alt={data.current.condition.text}
+                width={50}
+                height={50} // Set the appropriate width and height
+              />            
             </div>
           )}
       </div>
