@@ -37,10 +37,14 @@ const Home = () => {
         setError("");
       } catch (error) {
         setError("City not found");
-        setData({});
+        setData({
+          current: {
+            temp_f: 0, // Provide an initial value, or use any default value that makes sense.
+          },
+        });
       }
     }
-  };
+  };  
 
   let content;
   if(Object.keys(data).length === 0 && error === '')
