@@ -19,6 +19,11 @@ interface CurrentProps {
 }
 
 const Current = ({data}: CurrentProps) => {
+
+  if (!data || !data.current || !data.location) {
+    return null; 
+  }
+
   const currentDate = getCurrentDate();
   const weatherIcon = data.current.condition.icon;
   return (
