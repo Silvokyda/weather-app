@@ -27,7 +27,7 @@ const Home = () => {
         setError("");
       } catch (error) {
         setError("City not found");
-        setData({});
+        
       }
     }
   };
