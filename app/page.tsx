@@ -6,14 +6,8 @@ import Current from './component/Current';
 import WeatherDetails from './component/WeatherDetails';
 import WeekForecast from './component/WeekForecast';
 
-interface WeatherData {
-  current: {
-    temp_c: number;
-  };
-}
-
 const Home = () => {
-  const [data, setData] = useState<WeatherData | {}>({});
+  const [data, setData] = useState("");
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
