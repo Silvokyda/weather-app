@@ -9,23 +9,13 @@ import WeekForecast from './component/WeekForecast';
 interface WeatherData {
   current: {
     temp_f: number;
-    condition: {
-      icon: string;
-      text: string;
-    };
+    // Add other properties as needed
   };
-  location: {
-    name: string;
-    region: string;
-  };
+  // Add other properties as needed
 }
 
 const Home = () => {
-  const [data, setData] = useState<WeatherData>({
-    current: {
-      temp_f: 0, // Provide an initial value, or use any default value that makes sense.
-    },
-  });
+  const [data, setData] = useState<WeatherData | {}>({});
   const [location, setLocation] = useState("");
   const [error, setError] = useState("");
 
@@ -45,46 +35,43 @@ const Home = () => {
         setError("");
       } catch (error) {
         setError("City not found");
-        setData({
-          current: {
-            temp_f: 0, // Provide an initial value, or use any default value that makes sense.
-          },
-        });
+        setData({});
       }
     }
-  };  
+  };
 
   let content;
   if(Object.keys(data).length === 0 && error === '')
   {
     content = (
-      <div>
-        <h2>Welcome to the weather app</h2>
+      <div className="text-white text-center h-screen mt-[5rem]">
+        <h2 className='text-3xl font-bold mb-4'>Welcome to the weather app</h2>
+        <p className="text-xl">Enter a city name to get the weather forecast</p>
       </div>
     )
   } else if ( error !== ""){
     content = (
-      <div>
-        <p>City Not Found</p>
-        <p>Enter a Valid City</p>
+      <div className="text-white text-center h-screen mt-[5rem]">
+        <p className='text-3xl font-bold mb-4'>City Not Found</p>
+        <p className='text-xl'>Enter a Valid City</p>
       </div>
     );
   } else {
     content = (
       <>
-        <div>
+        <div className="flex md:flex-row flex-col p-12 items-center justify-between">
           <Current data={data}/>
-          <WeekForecast/>
+          <WeekForecast data={data}/>
         </div>
         <div>
-          <WeatherDetails/>
+          <WeatherDetails data={data}/>
         </div>
       </>
     )
   }
 
   return (
-    <div className="bg-cover bg-gradient-to-r from-blue-500 to to-blue-300 h-screen">
+    <div className="bg-cover bg-gradient-to-r from-blue-500 to to-blue-300 h-fit">
       <div className="bg-white/25 w-full flex flex-col h-fit">
         {/* INPUT AND LOGO */}
         <div className="flex flex-col md:flex-row justify-between items-center p-12">
