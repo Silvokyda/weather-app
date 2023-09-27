@@ -8,10 +8,8 @@ import WeekForecast from './component/WeekForecast';
 
 interface WeatherData {
   current: {
-    temp_f: number;
-    // Add other properties as needed
+    temp_c: number;
   };
-  // Add other properties as needed
 }
 
 const Home = () => {
