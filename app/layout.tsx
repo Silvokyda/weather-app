@@ -11,7 +11,7 @@ const poppins = Poppins(
 )
 
 export const metadata: Metadata = {
-  title: 'Weather App',
+  title: 'WeatherHub',
   description: 'Next Js Weather App',
 }
 
